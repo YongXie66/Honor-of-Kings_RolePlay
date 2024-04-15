@@ -1,6 +1,6 @@
 # Honor of Kings - RolePlay
 
-![img](README.assets/f637050d302b6b1cbe8223230c19228837397122.png@1256w_708h_!web-article-pic.avif)
+![img](pics/f637050d302b6b1cbe8223230c19228837397122.png@1256w_708h_!web-article-pic.avif)
 
 ## 背景
 
