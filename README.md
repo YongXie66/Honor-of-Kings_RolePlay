@@ -45,7 +45,7 @@
 
 王者荣耀数据的收集，来源于**兄弟项目**[Honor_of_Kings_Multi-modal_Dataset](https://github.com/chg0901/Honor_of_Kings_Multi-modal_Dataset/)，欢迎大家前去star~
 
-```json
+```bash
 |-- Honor-of-Kings_RolePlay/
     |-- README.md
     |-- 王者荣耀英雄名单.txt
@@ -84,12 +84,14 @@
 
 - **敬请期待...**
 
+
+
 ## 项目成员
 
-|      | 成员                                        | 贡献（更新中） |
-| ---- | ------------------------------------------- | -------------- |
-| 主创 | [谢勇](https://github.com/YongXie66/)       |                |
-| 主创 | [程宏](https://github.com/chg0901)          |                |
-| 共创 | [Wong Tack Hwa](https://github.com/tackhwa) |                |
-| 共创 | [沈飞](https://github.com/shenfeilang)      |                |
+|      | 成员                                        | 贡献（更新中...） |
+| ---- | ------------------------------------------- | ----------------- |
+| 主创 | [谢勇](https://github.com/YongXie66/)       |                   |
+| 主创 | [程宏](https://github.com/chg0901)          |                   |
+| 共创 | [Wong Tack Hwa](https://github.com/tackhwa) |                   |
+| 共创 | [沈飞](https://github.com/shenfeilang)      |                   |
 
