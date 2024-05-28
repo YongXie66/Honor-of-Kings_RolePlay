@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="liuqi" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="liuqi">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/cowed/qiliu/shenfei/InternLM_roleplay" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
