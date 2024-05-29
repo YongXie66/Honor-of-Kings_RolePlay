@@ -55,7 +55,7 @@ SYSTEM_PROMPT_3 = """
 from openai import OpenAI
 import os
 import json
-deepseek_key = "sk-1ee307ecd37c475ca6547b20d49821f8"  #此处填写deepseek的key
+deepseek_key = ""  #此处填写deepseek的key
 client = OpenAI(api_key=deepseek_key, base_url="https://api.deepseek.com/")
 def get_data_ds(content):
     response = client.chat.completions.create(
