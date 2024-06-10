@@ -1,6 +1,6 @@
 # Honor of Kings - RolePlay
 
-![img](妲己Images/时之奇旅.jpg)
+![img](datasets/妲己Images/时之奇旅.jpg)
 
 ## 背景
 
