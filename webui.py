@@ -5,11 +5,12 @@ import time
 from zhconv import convert
 from LLM import LLM
 from src.cost_time import calculate_time
+from openxlab.model import download
 import pdb
-
-from configs import *
 os.environ["GRADIO_TEMP_DIR"]= './temp'
 os.environ["WEBUI"] = "true"
+
+
 def get_title(title = 'Linly 智能对话系统 (Linly-Talker)'):
     description = f"""
     <p style="text-align: center; font-weight: bold;">
@@ -25,19 +26,11 @@ def get_title(title = 'Linly 智能对话系统 (Linly-Talker)'):
 
 
 # 设置默认system
-default_system = '你是一个很有帮助的助手'
+default_system = '你正在扮演王者荣耀里的角色妲己'
 # 设置默认的prompt
-prefix_prompt = '''请用少于25个字回答以下问题\n\n'''
-
+prefix_prompt = '''请用少于50个字回答以下问题\n\n'''
 
 # 设定默认参数值，可修改
-blink_every = True
-size_of_image = 256
-preprocess_type = 'crop'
-facerender = 'facevid2vid'
-enhancer = False
-is_still_mode = False
-exp_weight = 1
 use_ref_video = False
 ref_video = None
 ref_info = 'pose'
@@ -68,9 +61,9 @@ def TTS_response(text,
                             text = text, # 回答
                             text_language = text_language,
                             how_to_cut = how_to_cut,
-                            save_path = 'answer.wav')
+                            save_path = 'results/answer.wav')
             print(text, tts_method, save_path)
-            return 'answer.wav', None
+            return 'results/answer.wav', None
         except Exception as e:
             gr.Warning("无克隆环境或者无克隆模型权重，无法克隆声音", e)
             return None, None
@@ -86,78 +79,6 @@ def LLM_response(question_audio, question,
                  tts_method)
     return driven_audio, driven_vtt, answer
 
-@calculate_time
-def Talker_response(question_audio = None, method = 'SadTalker', text = '',
-                    voice = 'zh-CN-XiaoxiaoNeural', rate = 0, volume = 100, pitch = 0, 
-                    am = 'fastspeech2', voc = 'pwgan', lang = 'zh', male = False, 
-                    inp_ref = None, prompt_text = "", prompt_language = "", text_language = "", how_to_cut = "", 
-                    tts_method = 'Edge-TTS',batch_size = 2, character = '女性角色', 
-                    progress=gr.Progress(track_tqdm=True)):
-    default_voice = None
-    if character == '女性角色':
-        # 女性角色
-        source_image, pic_path = r'inputs/girl.png', r'inputs/girl.png'
-        crop_pic_path = "./inputs/first_frame_dir_girl/girl.png"
-        first_coeff_path = "./inputs/first_frame_dir_girl/girl.mat"
-        crop_info = ((403, 403), (19, 30, 502, 513), [40.05956541381802, 40.17324339233366, 443.7892505041507, 443.9029284826663])
-        default_voice = 'zh-CN-XiaoxiaoNeural'
-    elif character == '男性角色':
-        # 男性角色
-        source_image = r'./inputs/boy.png'
-        pic_path = "./inputs/boy.png"
-        crop_pic_path = "./inputs/first_frame_dir_boy/boy.png"
-        first_coeff_path = "./inputs/first_frame_dir_boy/boy.mat"
-        crop_info = ((876, 747), (0, 0, 886, 838), [10.382158280494476, 0, 886, 747.7078990925525])
-        default_voice = 'zh-CN-YunyangNeural'
-    else:
-        gr.Warning('未知角色')
-        return None
-    
-    voice = default_voice if not voice else voice
-    
-    if not voice:
-        gr.Warning('请选择声音')
-    
-    driven_audio, driven_vtt, _ = LLM_response(question_audio, text, 
-                                               voice, rate, volume, pitch, 
-                                               am, voc, lang, male, 
-                                               inp_ref, prompt_text, prompt_language, text_language, how_to_cut, 
-                                               tts_method)
-    
-    if method == 'SadTalker':
-        pose_style = random.randint(0, 45)
-        video = talker.test(pic_path,
-                        crop_pic_path,
-                        first_coeff_path,
-                        crop_info,
-                        source_image,
-                        driven_audio,
-                        preprocess_type,
-                        is_still_mode,
-                        enhancer,
-                        batch_size,                            
-                        size_of_image,
-                        pose_style,
-                        facerender,
-                        exp_weight,
-                        use_ref_video,
-                        ref_video,
-                        ref_info,
-                        use_idle_mode,
-                        length_of_audio,
-                        blink_every,
-                        fps=20)
-    elif method == 'Wav2Lip':
-        video = talker.predict(crop_pic_path, driven_audio, batch_size, enhancer)
-    elif method == 'ER-NeRF':
-        video = talker.predict(driven_audio)
-    else:
-        gr.Warning("不支持的方法：" + method)
-        return None
-    if driven_vtt:
-        return video, driven_vtt
-    else:
-        return video
 
 @calculate_time
 def Talker_response_img(question_audio, method, text, 
@@ -205,67 +126,6 @@ def Talker_response_img(question_audio, method, text,
     else:
         return video, answer
 
-@calculate_time
-def Talker_Say(preprocess_type, 
-                        is_still_mode,
-                        enhancer,
-                        batch_size,                            
-                        size_of_image,
-                        pose_style,
-                        facerender,
-                        exp_weight,
-                        blink_every,
-                        fps,source_image = None, source_video = None, question_audio = None, method = 'SadTalker', text = '', 
-                    voice = 'zh-CN-XiaoxiaoNeural', rate = 0, volume = 100, pitch = 0, 
-                    am = 'fastspeech2', voc = 'pwgan', lang = 'zh', male = False, 
-                    inp_ref = None, prompt_text = "", prompt_language = "", text_language = "", how_to_cut = "", 
-                    tts_method = 'Edge-TTS', character = '女性角色',
-                    progress=gr.Progress(track_tqdm=True)):
-    if source_video:
-        source_image = source_video
-    default_voice = None
-    
-    voice = default_voice if not voice else voice
-    
-    if not voice:
-        gr.Warning('请选择声音')
-    
-    driven_audio, driven_vtt = TTS_response(text, voice, rate, volume, pitch, 
-                 am, voc, lang, male, 
-                 inp_ref, prompt_text, prompt_language, text_language, how_to_cut, question_audio, text, 
-                 tts_method)
-    
-    if method == 'SadTalker':
-        pose_style = random.randint(0, 45)
-        video = talker.test2(source_image,
-                        driven_audio,
-                        preprocess_type,
-                        is_still_mode,
-                        enhancer,
-                        batch_size,                            
-                        size_of_image,
-                        pose_style,
-                        facerender,
-                        exp_weight,
-                        use_ref_video,
-                        ref_video,
-                        ref_info,
-                        use_idle_mode,
-                        length_of_audio,
-                        blink_every,
-                        fps=fps)
-    elif method == 'Wav2Lip':
-        video = talker.predict(source_image, driven_audio, batch_size, enhancer)
-    elif method == 'ER-NeRF':
-        video = talker.predict(driven_audio)
-    else:
-        gr.Warning("不支持的方法：" + method)
-        return None
-    if driven_vtt:
-        return video, driven_vtt
-    else:
-        return video
-
 
 def chat_response(system, message, history):
     # response = llm.generate(message)
@@ -277,11 +137,6 @@ def chat_response(system, message, history):
         yield "", history[:-1] + [(message, response[:i+1])]
     return "", history
 
-def modify_system_session(system: str) -> str:
-    if system is None or len(system) == 0:
-        system = default_system
-    llm.clear_history()
-    return system, system, []
 
 def clear_session():
     # clear history
@@ -290,71 +145,6 @@ def clear_session():
 
 def clear_text():
     return "", ""
-
-def human_response(history, question_audio, talker_method, 
-                   voice = 'zh-CN-XiaoxiaoNeural', rate = 0, volume = 0, pitch = 0, batch_size = 2, 
-                  am = 'fastspeech2', voc = 'pwgan', lang = 'zh', male = False, 
-                  inp_ref = None, prompt_text = "", prompt_language = "", text_language = "", how_to_cut = "", use_mic_voice = False,
-                  tts_method = 'Edge-TTS', character = '女性角色', progress=gr.Progress(track_tqdm=True)):
-    response = history[-1][1]
-    qusetion = history[-1][0]
-    # driven_audio, video_vtt = 'answer.wav', 'answer.vtt'
-    if character == '女性角色':
-        # 女性角色
-        source_image, pic_path = r'./inputs/girl.png', r"./inputs/girl.png"
-        crop_pic_path = "./inputs/first_frame_dir_girl/girl.png"
-        first_coeff_path = "./inputs/first_frame_dir_girl/girl.mat"
-        crop_info = ((403, 403), (19, 30, 502, 513), [40.05956541381802, 40.17324339233366, 443.7892505041507, 443.9029284826663])
-        default_voice = 'zh-CN-XiaoxiaoNeural'
-    elif character == '男性角色':
-        # 男性角色
-        source_image = r'./inputs/boy.png'
-        pic_path = "./inputs/boy.png"
-        crop_pic_path = "./inputs/first_frame_dir_boy/boy.png"
-        first_coeff_path = "./inputs/first_frame_dir_boy/boy.mat"
-        crop_info = ((876, 747), (0, 0, 886, 838), [10.382158280494476, 0, 886, 747.7078990925525])
-        default_voice = 'zh-CN-YunyangNeural'
-    voice = default_voice if not voice else voice
-    # tts.predict(response, voice, rate, volume, pitch, driven_audio, video_vtt)
-    driven_audio, driven_vtt = TTS_response(response, voice, rate, volume, pitch, 
-                 am, voc, lang, male, 
-                 inp_ref, prompt_text, prompt_language, text_language, how_to_cut, question_audio, qusetion, use_mic_voice,
-                 tts_method)
-    
-    if talker_method == 'SadTalker':
-        pose_style = random.randint(0, 45)
-        video = talker.test(pic_path,
-                        crop_pic_path,
-                        first_coeff_path,
-                        crop_info,
-                        source_image,
-                        driven_audio,
-                        preprocess_type,
-                        is_still_mode,
-                        enhancer,
-                        batch_size,                            
-                        size_of_image,
-                        pose_style,
-                        facerender,
-                        exp_weight,
-                        use_ref_video,
-                        ref_video,
-                        ref_info,
-                        use_idle_mode,
-                        length_of_audio,
-                        blink_every,
-                        fps=20)
-    elif talker_method == 'Wav2Lip':
-        video = talker.predict(crop_pic_path, driven_audio, batch_size, enhancer)
-    elif talker_method == 'ER-NeRF':
-        video = talker.predict(driven_audio)
-    else:
-        gr.Warning("不支持的方法：" + talker_method)
-        return None
-    if driven_vtt:
-        return video, driven_vtt
-    else:
-        return video
 
 
 GPT_SoVITS_ckpt = "GPT_SoVITS/pretrained_models"
@@ -366,22 +156,6 @@ def load_vits_model(gpt_path, sovits_path, progress=gr.Progress(track_tqdm=True)
     gr.Info("模型加载成功")
     return gpt_path, sovits_path
 
-def list_models(dir, endwith = ".pth"):
-    list_folder = os.listdir(dir)
-    list_folder = [i for i in list_folder if i.endswith(endwith)]
-    return list_folder
-
-def character_change(character):
-    if character == '女性角色':
-        # 女性角色
-        source_image = r'./inputs/girl.png'
-    elif character == '男性角色':
-        # 男性角色
-        source_image = r'./inputs/boy.png'
-    elif character == '自定义角色':
-        # gr.Warnings("自定义角色暂未更新，请继续关注后续，可通过自由上传图片模式进行自定义角色")
-        source_image = None
-    return source_image
 
 def webui_setting(talk = True):
     if not talk:
@@ -408,23 +182,6 @@ def webui_setting(talk = True):
     return  (source_image, 
              inp_ref, prompt_text, prompt_language, text_language, how_to_cut, 
              tts_method, batch_size, character, talker_method, asr_method, llm_method)
-
-
-def exmaple_setting(asr, text, character, talk , tts, voice, llm):
-    # 默认text的Example
-    examples =  [
-        ['Whisper-base', '应对压力最有效的方法是什么？', '女性角色', 'SadTalker', 'Edge-TTS', 'zh-CN-XiaoxiaoNeural', 'Qwen'],
-        ['FunASR', '如何进行时间管理？','男性角色', 'SadTalker', 'Edge-TTS', 'zh-CN-YunyangNeural', 'Qwen'],
-        ['Whisper-tiny', '为什么有些人选择使用纸质地图或寻求方向，而不是依赖GPS设备或智能手机应用程序？','女性角色', 'Wav2Lip', 'PaddleTTS', 'None', 'Qwen'],
-        ]
-
-    with gr.Row(variant='panel'):
-        with gr.Column(variant='panel'):
-            gr.Markdown("## Test Examples")
-            gr.Examples(
-                examples = examples,
-                inputs = [asr, text, character, talk , tts, voice, llm],
-            )
 
 
 def app_chatty():
@@ -552,133 +309,6 @@ def app_lively():
     return inference
 
 
-def asr_model_change(model_name, progress=gr.Progress(track_tqdm=True)):
-    global asr
-    if model_name == "Whisper-tiny":
-        try:
-            asr = WhisperASR('tiny')
-            # asr = WhisperASR('Whisper/tiny.pt')
-            gr.Info("Whisper-tiny模型导入成功")
-        except Exception as e:
-            gr.Warning(f"Whisper-tiny模型下载失败 {e}")
-    elif model_name == "Whisper-base":
-        try:
-            asr = WhisperASR('base')
-            # asr = WhisperASR('Whisper/base.pt')
-            gr.Info("Whisper-base模型导入成功")
-        except Exception as e:
-            gr.Warning(f"Whisper-base模型下载失败 {e}")
-    elif model_name == 'FunASR':
-        try:
-            from ASR import FunASR
-            asr = FunASR()
-            gr.Info("FunASR模型导入成功")
-        except Exception as e:
-            gr.Warning(f"FunASR模型下载失败 {e}")
-    else:
-        gr.Warning("未知ASR模型，可提issue和PR 或者 建议更新模型")
-    return model_name
-
-def llm_model_change(model_name, progress=gr.Progress(track_tqdm=True)):
-    global llm
-    gemini_apikey = ""
-    openai_apikey = ""
-    proxy_url = None
-    if model_name == 'Linly':
-        try:
-            llm = llm_class.init_model('Linly', 'Linly-AI/Chinese-LLaMA-2-7B-hf', prefix_prompt=prefix_prompt)
-            gr.Info("Linly模型导入成功")
-        except Exception as e:
-            gr.Warning(f"Linly模型下载失败 {e}")
-    elif model_name == 'Qwen':
-        try:
-            llm = llm_class.init_model('Qwen', 'Qwen/Qwen-1_8B-Chat', prefix_prompt=prefix_prompt)
-            gr.Info("Qwen模型导入成功")
-        except Exception as e:
-            gr.Warning(f"Qwen模型下载失败 {e}")
-    elif model_name == 'Qwen2':
-        try:
-            llm = llm_class.init_model('Qwen2', 'Qwen/Qwen1.5-0.5B-Chat', prefix_prompt=prefix_prompt)
-            gr.Info("Qwen2模型导入成功")
-        except Exception as e:
-            gr.Warning(f"Qwen2模型下载失败 {e}")
-    elif model_name == 'Gemini':
-        if gemini_apikey:
-            llm = llm_class.init_model('Gemini', 'gemini-pro', gemini_apikey, proxy_url)
-            gr.Info("Gemini模型导入成功")
-        else:
-            gr.Warning("请填写Gemini的api_key")
-    elif model_name == 'ChatGLM':
-        try:
-            llm = llm_class.init_model('ChatGLM', 'THUDM/chatglm3-6b', prefix_prompt=prefix_prompt)
-            gr.Info("ChatGLM模型导入成功")
-        except Exception as e:
-            gr.Warning(f"ChatGLM模型导入失败 {e}")
-    elif model_name == 'ChatGPT':
-        if openai_apikey:
-            llm = llm_class.init_model('ChatGPT', api_key=openai_apikey, proxy_url=proxy_url, prefix_prompt=prefix_prompt)
-        else:
-            gr.Warning("请填写OpenAI的api_key")
-    # elif model_name == 'Llama2Chinese':
-    #     try:
-    #         llm =llm_class.init_model('Llama2Chinese', 'Llama2-chat-13B-Chinese-50W')
-    #         gr.Info("Llama2Chinese模型导入成功")
-    #     except Exception as e:
-    #         gr.Warning(f"Llama2Chinese模型下载失败 {e}")
-    elif model_name == 'GPT4Free':
-        try:
-            llm = llm_class.init_model('GPT4Free', prefix_prompt=prefix_prompt)
-            gr.Info("GPT4Free模型导入成功, 请注意GPT4Free可能不稳定")
-        except Exception as e:
-            gr.Warning(f"GPT4Free模型下载失败 {e}")
-    else:
-        gr.Warning("未知LLM模型，可提issue和PR 或者 建议更新模型")
-    return model_name
-    
-def talker_model_change(model_name, progress=gr.Progress(track_tqdm=True)):
-    global talker
-    if model_name not in ['SadTalker', 'Wav2Lip', 'ER-NeRF']:
-        gr.Warning("其他模型还未集成，请等待")
-    if model_name == 'SadTalker':
-        try:
-            from TFG import SadTalker
-            talker = SadTalker(lazy_load=True)
-            gr.Info("SadTalker模型导入成功")
-        except Exception as e:
-            gr.Warning("SadTalker模型下载失败", e)
-    elif model_name == 'Wav2Lip':
-        try:
-            from TFG import Wav2Lip
-            talker = Wav2Lip("checkpoints/wav2lip_gan.pth")
-            gr.Info("Wav2Lip模型导入成功")
-        except Exception as e:
-            gr.Warning("Wav2Lip模型下载失败", e)
-    elif model_name == 'ER-NeRF':
-        try:
-            from TFG import ERNeRF
-            talker = ERNeRF()
-            talker.init_model('checkpoints/Obama_ave.pth', 'checkpoints/Obama.json')
-            gr.Info("ER-NeRF模型导入成功")
-        except Exception as e:
-            gr.Warning("ER-NeRF模型下载失败", e)
-    else:
-        gr.Warning("未知TFG模型，可提issue和PR 或者 建议更新模型")
-    return model_name
-
-def tts_model_change(model_name, progress=gr.Progress(track_tqdm=True)):
-    global tts
-    if model_name == 'GPT-SoVITS克隆声音':
-        try:
-            gpt_path = "GPT_SoVITS/pretrained_models/DaJi-e15.ckpt"
-            sovits_path = "GPT_SoVITS/pretrained_models/DaJi_e12_s240.pth"
-            vits.load_model(gpt_path, sovits_path)
-            # gr.Info("模型加载成功")
-        except Exception as e:
-            gr.Warning(f"GPT-SoVITS模型加载失败 {e}")
-    else:
-        gr.Warning("未知TTS模型")
-    return model_name
-
 def success_print(text):
     print(f"\033[1;31;42m{text}\033[0m")
 
@@ -688,11 +318,11 @@ def error_print(text):
 if __name__ == "__main__":
     llm_class = LLM(mode='offline')
     try:
-        llm = llm_class.init_model('Qwen', 'Qwen/Qwen-1_8B-Chat', prefix_prompt=prefix_prompt)
-        success_print("Success!!! LLM模块加载成功，默认使用Qwen模型")
+        llm = llm_class.init_model('InternLM2', 'InternLM2/InternLM2_7b', prefix_prompt=prefix_prompt)
+        success_print("Success!!! LLM模块加载成功，默认使用InternLM2_DaJi模型")
     except Exception as e:
-        error_print(f"Qwen Error: {e}")
-        error_print("如果使用Qwen，请先下载Qwen模型和安装环境")
+        error_print(f"Error: {e}")
+        error_print("如果使用InternLM2_DaJi，请先下载InternLM2模型和安装环境")
     
     try:
         from VITS import *
@@ -733,6 +363,7 @@ if __name__ == "__main__":
                                             " Lively_DaJi", 
                                            ],
                               title = "DaJi-RolePlay WebUI")
+
     demo.queue()
     demo.launch(server_name=ip, # 本地端口localhost:127.0.0.1 全局端口转发:"0.0.0.0"
                 server_port=port,

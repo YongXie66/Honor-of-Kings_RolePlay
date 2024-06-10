@@ -31,13 +31,6 @@ default_system = '你正在扮演王者荣耀里的角色妲己'
 prefix_prompt = '''请用少于50个字回答以下问题\n\n'''
 
 # 设定默认参数值，可修改
-# blink_every = True
-# size_of_image = 256
-# preprocess_type = 'crop'
-# facerender = 'facevid2vid'
-# enhancer = False
-# is_still_mode = False
-# exp_weight = 1
 use_ref_video = False
 ref_video = None
 ref_info = 'pose'
@@ -341,22 +334,22 @@ if __name__ == "__main__":
     # 回退两次目录
     os.system('cd ../..')
 
-    # # gpt_sovits, sadtalker 模型下载
-    # download(model_repo=vivid_path,
-    #      output='./DaJi_RolePlay')
+    # gpt_sovits, sadtalker 模型下载
+    download(model_repo=vivid_path,
+         output='./DaJi_RolePlay')
 
-    # # 模型位置移动
-    # os.system("mv ./DaJi_RolePlay/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/")
-    # os.system("mv ./DaJi_RolePlay/checkpoints/* ./checkpoints")
-    # os.system("mv ./DaJi_RolePlay/gfpgan/* ./gfpgan/")
+    # 模型位置移动
+    os.system("mv ./DaJi_RolePlay/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/")
+    os.system("mv ./DaJi_RolePlay/checkpoints/* ./checkpoints")
+    os.system("mv ./DaJi_RolePlay/gfpgan/* ./gfpgan/")
 
     llm_class = LLM(mode='offline')
     try:
         llm = llm_class.init_model('InternLM2', 'InternLM2/InternLM2_7b', prefix_prompt=prefix_prompt)
-        success_print("Success!!! LLM模块加载成功，默认使用InternLM2模型")
+        success_print("Success!!! LLM模块加载成功，默认使用InternLM2_DaJi模型")
     except Exception as e:
-        error_print(f"Qwen Error: {e}")
-        error_print("如果使用InternLM2，请先下载InternLM2模型和安装环境")
+        error_print(f"Error: {e}")
+        error_print("如果使用InternLM2_DaJi，请先下载InternLM2模型和安装环境")
     
     try:
         from VITS import *
@@ -386,28 +379,15 @@ if __name__ == "__main__":
         error_print("如果使用FunASR，请先下载WhisperASR模型和安装环境")
 
     gr.close_all()
-    # demo_app = app()
     demo_chatty = app_chatty()
     demo_lively = app_lively()
-    # demo_vits = app_vits()
-    # demo_talk = app_talk()
-    # demo_muse = app_muse()
     demo = gr.TabbedInterface(interface_list = [
-                                                # demo_app, 
                                                 demo_chatty,
-                                                demo_lively,  
-                                                # demo_vits, 
-                                                # demo_talk,
-                                                # demo_muse,
+                                                demo_lively,
                                                 ], 
                               tab_names = [
-                                            # "文本/语音对话", 
                                             " Chatty_DaJi", 
-                                            " Lively_DaJi", 
-                                        #    "多轮GPT对话", 
-                                        #    "语音克隆数字人对话", 
-                                        #    "数字人文本/语音播报",
-                                        #    "MuseTalk数字人实时对话"
+                                            " Lively_DaJi",
                                            ],
                               title = "DaJi-RolePlay WebUI")
     demo.queue()
