@@ -35,9 +35,9 @@
 
 ## demo
 
-| 文字/语音对话 |              数字人回答               |
+| 文字/语音提问 |              数字人回答               |
 | :-----------: | :-----------------------------------: |
-|    你好呀     | <video src="assets/demo.mp4" type="video/mp4"></video> |
+|    你好呀     | <video src="https://github.com/YongXie66/Honor-of-Kings_RolePlay/assets/demo.mp4" type="video/mp4"></video> |
 
 ## 行动
 
