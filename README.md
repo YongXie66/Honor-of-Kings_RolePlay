@@ -37,7 +37,7 @@
 
 | 文字/语音对话 |              数字人回答               |
 | :-----------: | :-----------------------------------: |
-|    你好呀     | <video src="assets/demo.mp4"></video> |
+|    你好呀     | <video src="assets/demo.mp4" type="video/mp4"></video> |
 
 ## 行动
 
