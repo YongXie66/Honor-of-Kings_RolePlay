@@ -223,7 +223,7 @@ def app_chatty():
 
 def app_lively():
     with gr.Blocks(analytics_enabled=False, title = 'DaJi_RolePlay') as inference:
-        gr.HTML(get_title("Vivid_DaJi~小狐仙🌟陪你聊天"))
+        gr.HTML(get_title("lively_DaJi~小狐仙🌟陪你聊天"))
         with gr.Row(equal_height=False):
             with gr.Column(variant='panel'):
                 # with gr.Tabs(elem_id="sadtalker_source_image"):
@@ -271,7 +271,7 @@ def app_lively():
                         with gr.Accordion("Advanced Settings", open=False):
                             with gr.Row():
                                 size_of_image = gr.Radio([256, 512], value=256, label='face model resolution', info="use 256/512 model? 256 is faster")
-                                batch_size = gr.Slider(label="batch size in generation", step=1, maximum=10, value=1) 
+                                batch_size = gr.Slider(label="batch size in generation", step=1, maximum=10, value=8) 
                                 enhancer = gr.Checkbox(label="GFPGAN as Face enhancer(take a long time)", value=False)        
                                 pose_style = gr.Number(value=0, visible=False)
                                 exp_weight = gr.Number(value=1, visible=False)
@@ -318,12 +318,12 @@ def error_print(text):
 if __name__ == "__main__":
 
     # 环境命令
-    os.chdir('/home/xlab-app-center/')
+    # os.chdir('/home/xlab-app-center/')
     
     LLM_openxlab_path = "shenfeilang/Honor-of-Kings_RolePlay"
-    vivid_openxlab_path = "YongXie66/DaJi_RolePlay"
+    lively_openxlab_path = "YongXie66/DaJi_RolePlay"
     llm_path = "./InternLM2/InternLM2_7b"
-    vivid_path = "./DaJi_RolePlay"
+    lively_path = "./DaJi_RolePlay"
 
     # LLM模型下载
     # download(model_repo=LLM_openxlab_path,
@@ -334,19 +334,19 @@ if __name__ == "__main__":
     os.system(f'cd {llm_path} && git lfs pull')
 
     # # gpt_sovits, sadtalker 模型下载
-    # download(model_repo=vivid_openxlab_path,
-        #  output= vivid_path)
-    os.system(f'git clone https://code.openxlab.org.cn/YongXie66/DaJi_RolePlay.git {vivid_path}')
-    os.system(f'cd {vivid_path} && git lfs pull')
+    # download(model_repo=lively_openxlab_path,
+        #  output= lively_path)
+    os.system(f'git clone https://code.openxlab.org.cn/YongXie66/DaJi_RolePlay.git {lively_path}')
+    os.system(f'cd {lively_path} && git lfs pull')
 
     # 获取当前目录下的文件和文件夹列表
     directory_list = os.listdir('.')
     print(directory_list)
 
     # 模型位置移动
-    os.system(f"mv {vivid_path}/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/")
-    os.system(f"mv {vivid_path}/{vivid_path}/checkpoints/* ./checkpoints")
-    os.system("mv /gfpgan/* ./gfpgan/")
+    os.system(f"mv {lively_path}/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/")
+    os.system(f"mv {lively_path}/checkpoints/* ./checkpoints")
+    os.system(f"mv {lively_path}//gfpgan/* ./gfpgan/")
 
     llm_class = LLM(mode='offline')
     try:
@@ -378,10 +378,10 @@ if __name__ == "__main__":
     try:
         from ASR import WhisperASR
         asr = WhisperASR('base')
-        success_print("Success!!! WhisperASR模块加载成功，默认使用Whisper-base模型")
+        success_print("Success!!! WhisperASR模块加载成功，默认使用Whisper-tiny模型")
     except Exception as e:
         error_print(f"ASR Error: {e}")
-        error_print("如果使用FunASR，请先下载WhisperASR模型和安装环境")
+        error_print("如果使用WhisperASR，请先下载WhisperASR模型和安装环境")
 
     gr.close_all()
     demo_chatty = app_chatty()
@@ -396,4 +396,4 @@ if __name__ == "__main__":
                                            ],
                               title = "DaJi-RolePlay WebUI")
     demo.queue()
-    demo.launch(share=True, server_port=7860) 
+    demo.launch(share=True) 
