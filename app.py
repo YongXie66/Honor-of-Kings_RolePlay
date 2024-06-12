@@ -318,30 +318,35 @@ def error_print(text):
 if __name__ == "__main__":
 
     # 环境命令
-    # os.chdir('/home/xlab-app-center/')
+    os.chdir('/home/xlab-app-center/')
     
-    LLM_path = "shenfeilang/Honor-of-Kings_RolePlay"
-    vivid_path = "YongXie66/DaJi_RolePlay"
+    LLM_openxlab_path = "shenfeilang/Honor-of-Kings_RolePlay"
+    vivid_openxlab_path = "YongXie66/DaJi_RolePlay"
     llm_path = "InternLM2/InternLM2_7b"
+    vivid_path = "DaJi_RolePlay"
 
     # LLM模型下载
-    # download(model_repo=LLM_path,
+    # download(model_repo=LLM_openxlab_path,
     #      output='./InternLM2/InternLM2_7b')
     os.system('apt install git')
     os.system('apt install git-lfs')
     os.system(f'git clone https://code.openxlab.org.cn/shenfeilang/Honor-of-Kings_RolePlay.git {llm_path}')
     os.system(f'cd {llm_path} && git lfs pull')
-    # 回退两次目录
-    os.system('cd ../..')
 
-    # gpt_sovits, sadtalker 模型下载
-    download(model_repo=vivid_path,
-         output='./DaJi_RolePlay')
+    # # gpt_sovits, sadtalker 模型下载
+    # download(model_repo=vivid_openxlab_path,
+        #  output= vivid_path)
+    os.system(f'git clone https://code.openxlab.org.cn/Yongxie66/Honor-of-Kings_RolePlay.git {vivid_path}')
+    os.system(f'cd {vivid_path} && git lfs pull')
+
+    # 获取当前目录下的文件和文件夹列表
+    directory_list = os.listdir('.')
+    print(directory_list)
 
     # 模型位置移动
-    os.system("mv ./DaJi_RolePlay/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/")
-    os.system("mv ./DaJi_RolePlay/checkpoints/* ./checkpoints")
-    os.system("mv ./DaJi_RolePlay/gfpgan/* ./gfpgan/")
+    os.system("mv {vivid_path}/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/")
+    os.system("mv {vivid_path}/checkpoints/* ./checkpoints")
+    os.system("mv {vivid_path}/gfpgan/* ./gfpgan/")
 
     llm_class = LLM(mode='offline')
     try:
