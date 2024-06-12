@@ -322,8 +322,8 @@ if __name__ == "__main__":
     
     LLM_openxlab_path = "shenfeilang/Honor-of-Kings_RolePlay"
     vivid_openxlab_path = "YongXie66/DaJi_RolePlay"
-    llm_path = "InternLM2/InternLM2_7b"
-    vivid_path = "DaJi_RolePlay"
+    llm_path = "./InternLM2/InternLM2_7b"
+    vivid_path = "./DaJi_RolePlay"
 
     # LLM模型下载
     # download(model_repo=LLM_openxlab_path,
@@ -344,9 +344,9 @@ if __name__ == "__main__":
     print(directory_list)
 
     # 模型位置移动
-    os.system("mv {vivid_path}/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/")
-    os.system("mv {vivid_path}/checkpoints/* ./checkpoints")
-    os.system("mv {vivid_path}/gfpgan/* ./gfpgan/")
+    os.system(f"mv {vivid_path}/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/")
+    os.system(f"mv {vivid_path}/{vivid_path}/checkpoints/* ./checkpoints")
+    os.system("mv /gfpgan/* ./gfpgan/")
 
     llm_class = LLM(mode='offline')
     try:
