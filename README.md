@@ -117,7 +117,7 @@ apt install git-lfs
 git clone https://code.openxlab.org.cn/shenfeilang/Honor-of-Kings_RolePlay.git InternLM2/InternLM2_7b/
 
 # gpt_sovits, sadtalker 模型下载
->>>download(model_repo=vivid_path, output='./DaJi_RolePlay')
+git clone https://code.openxlab.org.cn/YongXie66/DaJi_RolePlay.git ./DaJi_RolePlay
 
 # 模型位置移动
 mv ./DaJi_RolePlay/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/
