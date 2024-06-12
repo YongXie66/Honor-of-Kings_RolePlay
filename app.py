@@ -336,7 +336,7 @@ if __name__ == "__main__":
     # # gpt_sovits, sadtalker 模型下载
     # download(model_repo=vivid_openxlab_path,
         #  output= vivid_path)
-    os.system(f'git clone https://code.openxlab.org.cn/Yongxie66/Honor-of-Kings_RolePlay.git {vivid_path}')
+    os.system(f'git clone https://code.openxlab.org.cn/YongXie66/DaJi_RolePlay.git {vivid_path}')
     os.system(f'cd {vivid_path} && git lfs pull')
 
     # 获取当前目录下的文件和文件夹列表
