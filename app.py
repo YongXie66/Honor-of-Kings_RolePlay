@@ -167,7 +167,7 @@ def webui_setting(talk = True):
 
 
     # inp_ref = gr.Textbox(value='./GPT_SoVITS/ref_audio/主人的命令,是绝对的.wav', visible=False)
-    inp_ref = gr.Audio(value="GPT_SoVITS/ref_audio/主人的命令,是绝对的.wav", type="filepath", visible=False)
+    inp_ref = gr.Audio(value="GPT_SoVITS/ref_audio/ref_audio.wav", type="filepath", visible=False)
     prompt_text = gr.Textbox(value='主人的命令，是绝对的', visible=False)
     prompt_language = gr.Textbox(value="中文", visible=False)
     text_language = gr.Textbox(value="中文", visible=False)
