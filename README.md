@@ -37,6 +37,8 @@
 
 效果示例：
 
+<video id="video" controls="" preload="none" poster="封面"><br/>	<source id="mp4" src="assets/demo.mp4" type="video/mp4"><br/></videos>
+
 | 文字/语音提问 |                          数字人回答                          |
 | :-----------: | :----------------------------------------------------------: |
 |    你好呀     | <video id="video" controls="" preload="none" poster="封面"><br/>	<source id="mp4" src="https://github.com/YongXie66/Honor-of-Kings_RolePlay/assets/demo.mp4" type="video/mp4"><br/></videos> |
@@ -76,19 +78,29 @@
             ... ...
 ```
 
-### 数据生成
+### 微调数据生成
 
-### 微调
+更新中。。。
+
+### InternLM2微调
+
+更新中。。。
 
 ### 自动语音识别(ASR)
 
-支持使用麦克风在线录入音频，或者上传本地已有的音频文件，使用[whisper](https://github.com/openai/whisper)将语音转为文本，作为LLM的输入。
+ASR技术用于将用户的语音输入转换为文本。本项目支持用户通过麦克风在线录入音频，或者上传本地已有的音频文件。我们采用了开源的 [whisper](https://github.com/openai/whisper) 模型，该模型在多个语音识别任务上表现优异，能够高效、准确地将语音转化为文本。这些文本将作为输入，传递给LLM
 
 ### 文本转语音(TTS) + 语音克隆
 
-收集了王者荣耀英雄角色妲己的台词语音，通过微调[GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS)实现了对妲己音色的克隆
+TTS技术可以将文本转化为自然的语音输出。在本项目中，我们收集了王者荣耀英雄角色妲己的台词语音，通过微调 [GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS) 模型，实现了对妲己音色的克隆。能够将 LLM 输出的文本回答转换为语音，并以妲己的声音进行播报。
 
 ### 数字人
+
+数字人技术使得虚拟角色可以以更真实的方式与用户互动。本项目集成了 [SadTalker](https://github.com/OpenTalker/SadTalker) 技术，能够通过输入上一步 TTS 输出的音频文件以及妲己的海报，生成动态的说话视频。这使得虚拟小狐仙不仅可以用文本、声音与用户交流，还可以生成对应的面部表情的视频
+
+## RAG
+
+更新中。。。
 
 ## 使用指南
 
@@ -122,7 +134,7 @@ apt install git
 apt install git-lfs
 git clone https://code.openxlab.org.cn/shenfeilang/Honor-of-Kings_RolePlay.git InternLM2/InternLM2_7b/
 
-# gpt_sovits, sadtalker 模型下载
+# gpt_sovits, sadtalker 相关模型下载
 git clone https://code.openxlab.org.cn/YongXie66/DaJi_RolePlay.git ./DaJi_RolePlay
 
 # 模型位置移动
@@ -131,11 +143,21 @@ mv ./DaJi_RolePlay/checkpoints/* ./checkpoints
 mv ./DaJi_RolePlay/gfpgan/* ./gfpgan/
 ```
 
-WEBUI
+Web UI 启动 !
 
 ```bash
 python webui.py
 ```
+
+目前 Web UI 中提供了**Chatty_DaJi** 和 **Lively_DaJi** 两种对话模式
+
+- **Chatty_DaJi：InternLM2-Chat-7b 微调后的基础小狐仙对话模型 + ASR** 
+
+![image-20240613235252894](assets/image-20240613235252894.png)
+
+- **Lively_DaJi：InternLM2-Chat-7b 微调 + ASR + TTS + voice clone + 数字人** 
+
+![image-20240614000226211](assets/image-20240614000226211.png)
 
 
 
@@ -147,4 +169,19 @@ python webui.py
 | 主创 | [程宏](https://github.com/chg0901)          |                   |
 | 共创 | [Wong Tack Hwa](https://github.com/tackhwa) |                   |
 | 共创 | [沈飞](https://github.com/shenfeilang)      |                   |
+
+## 致谢
+
+感谢上海人工智能实验室推出的 **[书生·浦语大模型实战营](https://openxlab.org.cn/models/InternLM/subject)** 学习活动！
+
+感谢上海人工智能实验室对本项目的技术指导和算力支持！
+
+感谢各个开源项目，包括但不限于：
+
+- [InternLM](https://github.com/InternLM/InternLM)
+- [xtuner](https://github.com/InternLM/xtuner)
+- [whisper](https://github.com/openai/whisper)
+- [LMDeploy](https://github.com/InternLM/LMDeploy)
+- [GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS)
+- [SadTalker](https://github.com/OpenTalker/SadTalker)
 

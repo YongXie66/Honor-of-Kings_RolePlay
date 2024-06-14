@@ -193,7 +193,7 @@ def app_chatty():
                 # am, voc, lang, male, 
                 # inp_ref, prompt_text, prompt_language, text_language, how_to_cut,  use_mic_voice,
                 # tts_method, batch_size, character, talker_method, asr_method, llm_method)= webui_setting()
-                source_image = gr.Image(value='inputs/DaJi.png', label="DaJi image", type="filepath", elem_id="img2img_image", interactive=False, visible=True)  
+                source_image = gr.Image(value='inputs/DaJi.png', type="filepath", elem_id="img2img_image", interactive=False, visible=True)  
 
             with gr.Column():
                 system_input = gr.Textbox(value=default_system, lines=1, label='System (设定角色)', visible=False)
@@ -270,7 +270,7 @@ def app_lively():
                     with gr.TabItem('数字人参数设置'):
                         with gr.Accordion("Advanced Settings", open=False):
                             with gr.Row():
-                                size_of_image = gr.Radio([256, 512], value=256, label='face model resolution', info="use 256/512 model? 256 is faster")
+                                size_of_image = gr.Radio([256, 512], value=256, label='face model resolution')
                                 batch_size = gr.Slider(label="batch size in generation", step=1, maximum=10, value=8) 
                                 enhancer = gr.Checkbox(label="GFPGAN as Face enhancer(take a long time)", value=False)        
                                 pose_style = gr.Number(value=0, visible=False)
