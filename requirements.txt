@@ -19,7 +19,6 @@ edge-tts>=6.1.9
 openai-whisper
 scikit-image==0.19.3
 accelerate
-transformers==4.32.0
 einops 
 transformers_stream_generator==0.0.4
 sentencepiece
