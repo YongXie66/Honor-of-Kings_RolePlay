@@ -14,13 +14,11 @@ yacs==0.1.8
 pyyaml  
 joblib==1.1.0
 facexlib==0.3.0
-gradio==4.16.0
 edge-tts>=6.1.9
 openai-whisper
 scikit-image==0.19.3
 accelerate
-einops 
-transformers_stream_generator==0.0.4
+einops
 sentencepiece
 google-generativeai
 tiktoken
@@ -40,7 +38,6 @@ cn2an
 pypinyin
 pyopenjtalk
 g2p_en
-modelscope==1.10.0
 sentencepiece
 chardet
 PyYAML
@@ -49,9 +46,6 @@ jieba_fast
 jieba
 LangSegment
 transformers==4.34.0
-accelerate 
-tiktoken
-scipy
 transformers_stream_generator==0.0.4 
 peft 
 deepspeed
