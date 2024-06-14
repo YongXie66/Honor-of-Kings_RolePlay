@@ -49,12 +49,11 @@ psutil
 jieba_fast
 jieba
 LangSegment
+transformers==4.34.0
+accelerate 
+tiktoken
+scipy
+transformers_stream_generator==0.0.4 
+peft 
+deepspeed
 # gfpgan
-# ========Qwen Need========#
-# transformers==4.32.0
-# accelerate 
-# tiktoken
-# scipy
-# transformers_stream_generator==0.0.4 
-# peft 
-# deepspeed
