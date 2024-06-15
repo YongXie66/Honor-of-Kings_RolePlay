@@ -22,12 +22,10 @@ einops
 sentencepiece
 google-generativeai
 tiktoken
-accelerate
 protobuf==3.19.6
 openai
 google-api-python-client==2.126.0
 g4f
-librosa==0.9.2
 numba==0.56.4
 pytorch-lightning
 ffmpeg-python
@@ -38,7 +36,7 @@ cn2an
 pypinyin
 pyopenjtalk
 g2p_en
-sentencepiece
+modelscope==1.10.0
 chardet
 PyYAML
 psutil
