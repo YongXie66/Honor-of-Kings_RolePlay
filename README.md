@@ -182,12 +182,12 @@ python webui.py
 
 ## 项目成员
 
-|      | 成员                                        | 贡献（更新中...） |
-| ---- | ------------------------------------------- | ----------------- |
-| 主创 | [谢勇](https://github.com/YongXie66/)       |                   |
-| 主创 | [程宏](https://github.com/chg0901)          |                   |
-| 共创 | [Wong Tack Hwa](https://github.com/tackhwa) |                   |
-| 共创 | [沈飞](https://github.com/shenfeilang)      |                   |
+|      | 成员                                        | 贡献（更新中...）                                            |
+| ---- | ------------------------------------------- | ------------------------------------------------------------ |
+| 主创 | [谢勇](https://github.com/YongXie66/)       |                                                              |
+| 主创 | [程宏](https://github.com/chg0901)          |                                                              |
+| 共创 | [Wong Tack Hwa](https://github.com/tackhwa) |                                                              |
+| 共创 | [沈飞](https://github.com/shenfeilang)      | 王者荣耀相关数据集爬取；微调数据集生成与预处理；角色扮演模型微调与量化 |
 
 ## 致谢
 
