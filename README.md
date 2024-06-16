@@ -37,18 +37,9 @@
 
 效果示例：
 
-<video width="320" height="240" controls>
-    <source src="https://github.com/YongXie66/Honor-of-Kings_RolePlay/assets/demo.mp4" type="video/mp4">
-</video>
-
-
-https://github.com/YongXie66/Honor-of-Kings_RolePlay/assets/88486439/4031cb3d-e65c-4beb-9a32-a296f33175c1
-
-
-
 | 文字/语音提问 |                          数字人回答                          |
 | :-----------: | :----------------------------------------------------------: |
-|    你好呀     | <video src="https://github.com/YongXie66/Honor-of-Kings_RolePlay/assets/88486439/4031cb3d-e65c-4beb-9a32-a296f33175c1"></video> |
+|    你好呀     | <video src="https://github.com/YongXie66/Honor-of-Kings_RolePlay/assets/88486439/c27ebda4-8a96-45a3-841b-fc3de57602d6"></video> |
 
 ## 行动
 
