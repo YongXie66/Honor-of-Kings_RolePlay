@@ -39,7 +39,7 @@
 
 | 文字/语音提问 |                          数字人回答                          |
 | :-----------: | :----------------------------------------------------------: |
-|    你知道如何应对压力吗     | <video src="[demo.mp4](https://github.com/YongXie66/Honor-of-Kings_RolePlay/assets/88486439/c27ebda4-8a96-45a3-841b-fc3de57602d6)"></video> |
+|    你知道如何应对压力吗     | <video src="https://github.com/YongXie66/Honor-of-Kings_RolePlay/assets/88486439/c27ebda4-8a96-45a3-841b-fc3de57602d6"></video> |
 
 ## 行动
 
