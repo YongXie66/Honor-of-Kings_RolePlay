@@ -42,9 +42,13 @@
 </video>
 
 
+https://github.com/YongXie66/Honor-of-Kings_RolePlay/assets/88486439/4031cb3d-e65c-4beb-9a32-a296f33175c1
+
+
+
 | 文字/语音提问 |                          数字人回答                          |
 | :-----------: | :----------------------------------------------------------: |
-|    你好呀     | <video width="320" height="240" controls><br/>    <source src="assets/demo.mp4" type="video/mp4"><br/></video> |
+|    你好呀     | <video width="320" height="240" controls><br/>    <source src="[assets/demo.mp4](https://github.com/YongXie66/Honor-of-Kings_RolePlay/assets/88486439/4031cb3d-e65c-4beb-9a32-a296f33175c1)" type="video/mp4"><br/></video> |
 
 ## 行动
 
