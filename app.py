@@ -5,8 +5,8 @@ import time
 from zhconv import convert
 from LLM import LLM
 from src.cost_time import calculate_time
-from openxlab.model import download
-import pdb
+# from openxlab.model import download
+# import pdb
 os.environ["GRADIO_TEMP_DIR"]= './temp'
 os.environ["WEBUI"] = "true"
 
@@ -401,7 +401,7 @@ if __name__ == "__main__":
 """)
     demo.queue()
     demo.launch(
-                ssl_certfile="./https_cert/cert.pem",
-                ssl_keyfile="./https_cert/key.pem",
+                ssl_certfile="/home/xlab-app-center/https_cert/cert.pem",
+                ssl_keyfile="/home/xlab-app-center/https_cert/key.pem",
                 ssl_verify=False,
                 share=True) 
