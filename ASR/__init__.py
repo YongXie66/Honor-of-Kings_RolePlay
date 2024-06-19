@@ -1,3 +1,4 @@
 from .Whisper import WhisperASR
+from .FunASR import FunASR
 
-__all__ = ['WhisperASR']
+__all__ = ['WhisperASR', 'FunASR']

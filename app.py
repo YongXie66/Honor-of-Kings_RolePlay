@@ -11,7 +11,7 @@ os.environ["GRADIO_TEMP_DIR"]= './temp'
 os.environ["WEBUI"] = "true"
 
 
-def get_title(title = 'Linly 智能对话系统 (Linly-Talker)'):
+def get_title(title = ''):
     description = f"""
     <p style="text-align: center; font-weight: bold;">
         <span style="font-size: 28px;">{title}</span>
@@ -44,7 +44,7 @@ def Asr(audio):
         question = convert(question, 'zh-cn')
     except Exception as e:
         print("ASR Error: ", e)
-        question = '麦克风模式可能音频还未传入，请重新点击一下语音识别即可'
+        question = '音频可能还未传入，请重新点击语音识别'
         gr.Warning(question)
     return question
 
@@ -52,7 +52,7 @@ def Asr(audio):
 def TTS_response(text, 
                  inp_ref, prompt_text, prompt_language, text_language, how_to_cut, 
                  question_audio, question, 
-                 tts_method = '', save_path = 'answer.wav'):
+                 tts_method = '', save_path = 'results/answer.wav'):
     if tts_method == 'GPT-SoVITS克隆声音':
         try:
             vits.predict(ref_wav_path = inp_ref,
@@ -174,14 +174,12 @@ def webui_setting(talk = True):
     how_to_cut = gr.Textbox(value="凑四句一切", visible=False)
     batch_size = gr.Textbox(value=2, visible=False)
 
-    character = gr.Textbox(value='自定义角色', visible=False)
     tts_method = gr.Textbox(value='GPT-SoVITS克隆声音', visible=False)
-    asr_method = gr.Textbox(value='Whisper-tiny', visible=False)
     talker_method = gr.Textbox(value='SadTalker', visible=False)
-    llm_method = gr.Textbox(value='Qwen', visible=False)
+    llm_method = gr.Textbox(value='InternLM2', visible=False)
     return  (source_image, 
              inp_ref, prompt_text, prompt_language, text_language, how_to_cut, 
-             tts_method, batch_size, character, talker_method, asr_method, llm_method)
+             tts_method, batch_size, talker_method, llm_method)
 
 
 def app_chatty():
@@ -189,21 +187,17 @@ def app_chatty():
         gr.HTML(get_title("Chatty_DaJi~小狐仙🌟陪你聊天"))
         with gr.Row():
             with gr.Column():
-                # (source_image, voice, rate, volume, pitch, 
-                # am, voc, lang, male, 
-                # inp_ref, prompt_text, prompt_language, text_language, how_to_cut,  use_mic_voice,
-                # tts_method, batch_size, character, talker_method, asr_method, llm_method)= webui_setting()
-                source_image = gr.Image(value='inputs/DaJi.png', type="filepath", elem_id="img2img_image", interactive=False, visible=True)  
+                source_image = gr.Image(value='inputs/DaJi.png', type="filepath", elem_id="img2img_image", interactive=False, visible=True, label="小狐仙")  
 
             with gr.Column():
-                system_input = gr.Textbox(value=default_system, lines=1, label='System (设定角色)', visible=False)
-                chatbot = gr.Chatbot(height=400, show_copy_button=True)
+                system_input = gr.Textbox(value=default_system, lines=1, label='System', visible=False)
+                chatbot = gr.Chatbot(height=400, show_copy_button=True, label='聊天框')
                 with gr.Group():
                     question_audio = gr.Audio(sources=['microphone','upload'], type="filepath", label='语音对话', autoplay=False)
                     asr_text = gr.Button('🎤 语音识别（语音对话后点击）')
                 
                 # 创建一个文本框组件，用于输入 prompt。
-                msg = gr.Textbox(label="Prompt/问题")
+                msg = gr.Textbox(label="Prompt/输入问题")
                 asr_text.click(fn=Asr,inputs=[question_audio],outputs=[msg])
                 
                 with gr.Row():
@@ -223,7 +217,7 @@ def app_chatty():
 
 def app_lively():
     with gr.Blocks(analytics_enabled=False, title = 'DaJi_RolePlay') as inference:
-        gr.HTML(get_title("lively_DaJi~小狐仙🌟陪你聊天"))
+        gr.HTML(get_title("Lively_DaJi~小狐仙🌟陪你聊天"))
         with gr.Row(equal_height=False):
             with gr.Column(variant='panel'):
                 # with gr.Tabs(elem_id="sadtalker_source_image"):
@@ -233,7 +227,7 @@ def app_lively():
                 #                 source_image = gr.Image(value=source_image_path, label="DaJi image", type="filepath", elem_id="img2img_image", width=256, interactive=False)                                
                 (source_image,  
                 inp_ref, prompt_text, prompt_language, text_language, how_to_cut, 
-                tts_method, batch_size, character, talker_method, asr_method, llm_method)= webui_setting()
+                tts_method, batch_size, talker_method, llm_method)= webui_setting()
                              
                 with gr.Tabs():
                     with gr.TabItem('ASR'):
@@ -315,6 +309,7 @@ def success_print(text):
 def error_print(text):
     print(f"\033[1;37;41m{text}\033[0m")
 
+
 if __name__ == "__main__":
 
     # 环境命令
@@ -344,14 +339,15 @@ if __name__ == "__main__":
     print(directory_list)
 
     # 模型位置移动
-    os.system(f"mv {lively_path}/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/")
-    os.system(f"mv {lively_path}/checkpoints/* ./checkpoints")
+    os.system(f"mv -f {lively_path}/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/")
+    os.system(f"mv -f {lively_path}/checkpoints/* ./checkpoints")
+    os.system(f"mv {lively_path}//FunASR/* ./FunASR/")
     os.system(f"mv {lively_path}//gfpgan/* ./gfpgan/")
 
     llm_class = LLM(mode='offline')
     try:
         llm = llm_class.init_model('InternLM2', 'InternLM2/InternLM2_7b', prefix_prompt=prefix_prompt)
-        success_print("Success!!! LLM模块加载成功，默认使用InternLM2_DaJi模型")
+        success_print("Success!!! LLM模块加载成功")
     except Exception as e:
         error_print(f"Error: {e}")
         error_print("如果使用InternLM2_DaJi，请先下载InternLM2模型和安装环境")
@@ -362,26 +358,28 @@ if __name__ == "__main__":
         gpt_path = "DaJi-e15.ckpt"
         sovits_path = "DaJi_e12_s240.pth"
         load_vits_model(gpt_path, sovits_path)
-        success_print("Success!!! GPT-SoVITS模块加载成功，语音克隆默认使用GPT-SoVITS模型")
+        success_print("Success!!! GPT-SoVITS模块加载成功")
     except Exception as e:
         error_print(f"GPT-SoVITS Error: {e}")
-        error_print("如果使用VITS，请先下载GPT-SoVITS模型和安装环境")
+        error_print("请先下载GPT-SoVITS模型和安装环境")
     
     try:
         from TFG import SadTalker
         talker = SadTalker(lazy_load=True)
-        success_print("Success!!! SadTalker模块加载成功，默认使用SadTalker模型")
+        success_print("Success!!! SadTalker模块加载成功")
     except Exception as e:
         error_print(f"SadTalker Error: {e}")
-        error_print("如果使用SadTalker，请先下载SadTalker模型")
+        error_print("请先下载SadTalker模型")
     
     try:
-        from ASR import WhisperASR
-        asr = WhisperASR('base')
-        success_print("Success!!! WhisperASR模块加载成功，默认使用Whisper-tiny模型")
+        # from ASR import WhisperASR
+        # asr = WhisperASR('base')
+        from ASR import FunASR
+        asr = FunASR()
+        success_print("Success!!! FunASR模块加载成功")
     except Exception as e:
         error_print(f"ASR Error: {e}")
-        error_print("如果使用WhisperASR，请先下载WhisperASR模型和安装环境")
+        error_print("请先下载ASR模型和安装环境")
 
     gr.close_all()
     demo_chatty = app_chatty()
@@ -394,6 +392,12 @@ if __name__ == "__main__":
                                             " Chatty_DaJi", 
                                             " Lively_DaJi",
                                            ],
-                              title = "DaJi-RolePlay WebUI")
+                              title = """
+<div style='text-align: center;'>
+    <span style='font-family: "Brush Script MT", cursive; font-size: 32px; color: transparent; background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%); background-clip: text; -webkit-background-clip: text;'>
+        Welcome~ 
+    </span>
+</div>
+""")
     demo.queue()
     demo.launch(share=True) 

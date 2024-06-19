@@ -25,6 +25,8 @@
    - 采用符合游戏人物妲己的性格特点、语气、行为方式和表达方式来回复问题
    - 目前实现了英雄妲己的角色扮演，以后会支持更多的英雄角色，也可以根据使用的需求设定创建属于自己的英雄，语音音色和添加特定的对话方式
 
+![Architecture](assets/Architecture.png)
+
 ### 功能亮点
 
 - ASR语音识别技术🎤：支持用户的语音输入
@@ -35,11 +37,18 @@
 
 ## 📺demo
 
+**OpenXLab在线体验地址**：https://openxlab.org.cn/apps/detail/YongXie66/DaJi_RolePlay
+
 效果示例：
 
 | 文字/语音提问 |                          数字人回答                          |
 | :-----------: | :----------------------------------------------------------: |
 |    你知道如何应对压力吗     | <video src="https://github.com/YongXie66/Honor-of-Kings_RolePlay/assets/88486439/c27ebda4-8a96-45a3-841b-fc3de57602d6"></video> |
+
+## 📰News
+
+- [2024.06.19] 语音输入支持速度更快、对中文更加友好的**FunASR**
+- [2024.06.16] 本项目初版完成！支持 **ASR + RAG + TTS + 数字人**
 
 ## 行动
 
@@ -108,6 +117,8 @@
 
 ASR技术用于将用户的语音输入转换为文本。本项目支持用户通过麦克风在线录入音频，或者上传本地已有的音频文件。我们采用了开源的 [whisper](https://github.com/openai/whisper) 模型，该模型在多个语音识别任务上表现优异，能够高效、准确地将语音转化为文本。这些转换后的文本将作为输入，传递给LLM。
 
+[2024.06.19]更新：语音输入支持速度更快、对中文更加友好的FunASR
+
 ### 📢文本转语音(TTS) + 语音克隆
 
 TTS技术可以将文本转化为自然的语音输出。在本项目中，我们集成了强大的少样本语音转换与语音克隆方法 [GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS)，利用其 `few-shot TTS`功能，通过收集王者荣耀英雄角色妲己的台词语音来微调 [GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS) 模型，实现了对妲己音色的克隆。能够将 LLM 输出的文本回答转换为语音，并以妲己的声音进行播报。
@@ -151,12 +162,13 @@ apt install git
 apt install git-lfs
 git clone https://code.openxlab.org.cn/shenfeilang/Honor-of-Kings_RolePlay.git InternLM2/InternLM2_7b/
 
-# gpt_sovits, sadtalker 相关模型下载
+# funasr, gpt_sovits, sadtalker 相关模型下载
 git clone https://code.openxlab.org.cn/YongXie66/DaJi_RolePlay.git ./DaJi_RolePlay
 
 # 模型位置移动
 mv ./DaJi_RolePlay/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/
-mv ./DaJi_RolePlay/checkpoints/* ./checkpoints
+mv ./DaJi_RolePlay/checkpoints/* ./checkpoints/
+mv ./DaJi_RolePlay/FunASR/* ./FunASR/
 mv ./DaJi_RolePlay/gfpgan/* ./gfpgan/
 ```
 
@@ -200,6 +212,7 @@ python webui.py
 - [InternLM](https://github.com/InternLM/InternLM)
 - [xtuner](https://github.com/InternLM/xtuner)
 - [whisper](https://github.com/openai/whisper)
+- [FunASR](https://github.com/modelscope/FunASR)
 - [LMDeploy](https://github.com/InternLM/LMDeploy)
 - [GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS)
 - [SadTalker](https://github.com/OpenTalker/SadTalker)
