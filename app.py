@@ -393,9 +393,9 @@ if __name__ == "__main__":
                                             " Lively_DaJi",
                                            ],
                               title = """
-<div style='text-align: center;'>
-    <span style='font-family: "Brush Script MT", cursive; font-size: 32px; color: transparent; background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%); background-clip: text; -webkit-background-clip: text;'>
-        Welcome~ 
+<div style='text-align: left;'>
+    <span style='font-size: 28px; '>
+        峡谷小狐仙———多模态角色扮演小助手 
     </span>
 </div>
 """)
