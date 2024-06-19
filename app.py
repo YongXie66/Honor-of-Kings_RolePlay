@@ -372,11 +372,11 @@ if __name__ == "__main__":
         error_print("请先下载SadTalker模型")
     
     try:
-        # from ASR import WhisperASR
-        # asr = WhisperASR('base')
-        from ASR import FunASR
-        asr = FunASR()
-        success_print("Success!!! FunASR模块加载成功")
+        from ASR import WhisperASR
+        asr = WhisperASR('base')
+        # from ASR import FunASR
+        # asr = FunASR()
+        success_print("Success!!! ASR模块加载成功")
     except Exception as e:
         error_print(f"ASR Error: {e}")
         error_print("请先下载ASR模型和安装环境")
