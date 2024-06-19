@@ -400,4 +400,8 @@ if __name__ == "__main__":
 </div>
 """)
     demo.queue()
-    demo.launch(share=True) 
+    demo.launch(
+                ssl_certfile="./https_cert/cert.pem",
+                ssl_keyfile="./https_cert/key.pem",
+                ssl_verify=False,
+                share=True) 

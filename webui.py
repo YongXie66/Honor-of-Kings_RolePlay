@@ -5,7 +5,6 @@ import time
 from zhconv import convert
 from LLM import LLM
 from src.cost_time import calculate_time
-from configs import *
 import pdb
 os.environ["GRADIO_TEMP_DIR"]= './temp'
 os.environ["WEBUI"] = "true"
@@ -369,11 +368,11 @@ if __name__ == "__main__":
 )
 
     demo.queue()
-    demo.launch(server_name=ip, # 本地端口localhost:127.0.0.1 全局端口转发:"0.0.0.0"
-                server_port=port,
-                # 似乎在Gradio4.0以上版本可以不使用证书也可以进行麦克风对话
-                # ssl_certfile=ssl_certfile,
-                # ssl_keyfile=ssl_keyfile,
+    demo.launch(server_name='127.0.0.1', # 本地端口localhost:127.0.0.1 全局端口转发:"0.0.0.0"
+                server_port=6006,
+                # Gradio4.0以上版本可以不使用证书
+                # ssl_certfile="./https_cert/cert.pem",
+                # ssl_keyfile="./https_cert/key.pem",
                 # ssl_verify=False,
                 debug=True,
                 ) 
