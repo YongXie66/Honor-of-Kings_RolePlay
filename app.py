@@ -374,7 +374,6 @@ if __name__ == "__main__":
     try:
         from ASR import WhisperASR
         asr = WhisperASR('tiny')
-        asr = WhisperASR('base')
         # from ASR import FunASR
         # asr = FunASR()
         success_print("Success!!! ASR模块加载成功")
