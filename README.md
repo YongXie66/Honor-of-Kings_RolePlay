@@ -27,7 +27,7 @@
    - 采用符合游戏人物妲己的性格特点、语气、行为方式和表达方式来回复问题
    - 目前实现了英雄妲己的角色扮演，以后会支持更多的英雄角色，也可以根据使用的需求设定创建属于自己的英雄，语音音色和添加特定的对话方式
 
-![Architecture](assets/Architecture.png)
+![Architecture](assets/tech_route4.svg)
 
 ### 功能亮点
 
@@ -39,7 +39,8 @@
 
 ## 📺demo
 
-**OpenXLab在线体验地址**：https://openxlab.org.cn/apps/detail/YongXie66/DaJi_RolePlay
+- **OpenXLab在线体验地址**：https://openxlab.org.cn/apps/detail/YongXie66/DaJi_RolePlay
+- **视频地址**：https://www.bilibili.com/video/BV1JuVJe1EqT
 
 效果示例：
 
