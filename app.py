@@ -374,6 +374,7 @@ if __name__ == "__main__":
     try:
         from ASR import WhisperASR
         asr = WhisperASR('tiny')
+        asr = WhisperASR('base')
         # from ASR import FunASR
         # asr = FunASR()
         success_print("Success!!! ASR模块加载成功")
@@ -401,7 +402,7 @@ if __name__ == "__main__":
 """)
     demo.queue()
     demo.launch(
-                ssl_certfile="./https_cert/cert.pem",
-                ssl_keyfile="./https_cert/key.pem",
+                ssl_certfile="/home/xlab-app-center/https_cert/cert.pem",
+                ssl_keyfile="/home/xlab-app-center/https_cert/key.pem",
                 ssl_verify=False,
                 share=True) 
