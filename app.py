@@ -5,8 +5,8 @@ import time
 from zhconv import convert
 from LLM import LLM
 from src.cost_time import calculate_time
-from openxlab.model import download
-import pdb
+#from openxlab.model import download
+#import pdb
 os.environ["GRADIO_TEMP_DIR"]= './temp'
 os.environ["WEBUI"] = "true"
 
@@ -341,7 +341,7 @@ if __name__ == "__main__":
     # 模型位置移动
     os.system(f"mv -f {lively_path}/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/")
     os.system(f"mv -f {lively_path}/checkpoints/* ./checkpoints")
-    os.system(f"mv {lively_path}//FunASR/* ./FunASR/")
+    # os.system(f"mv {lively_path}//FunASR/* ./FunASR/")
     os.system(f"mv {lively_path}//gfpgan/* ./gfpgan/")
 
     llm_class = LLM(mode='offline')
@@ -372,11 +372,11 @@ if __name__ == "__main__":
         error_print("请先下载SadTalker模型")
     
     try:
-        # from ASR import WhisperASR
-        # asr = WhisperASR('base')
-        from ASR import FunASR
-        asr = FunASR()
-        success_print("Success!!! FunASR模块加载成功")
+        from ASR import WhisperASR
+        asr = WhisperASR('tiny')
+        # from ASR import FunASR
+        # asr = FunASR()
+        success_print("Success!!! ASR模块加载成功")
     except Exception as e:
         error_print(f"ASR Error: {e}")
         error_print("请先下载ASR模型和安装环境")
