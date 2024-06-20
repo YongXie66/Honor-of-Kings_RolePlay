@@ -37,7 +37,8 @@
 
 ## 📺demo
 
-**OpenXLab在线体验地址**：https://openxlab.org.cn/apps/detail/YongXie66/DaJi_RolePlay
+- **OpenXLab在线体验地址**：https://openxlab.org.cn/apps/detail/YongXie66/DaJi_RolePlay
+- **视频地址**：https://www.bilibili.com/video/BV1JuVJe1EqT
 
 效果示例：
 
