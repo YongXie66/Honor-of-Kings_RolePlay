@@ -1,4 +1,5 @@
 import os
+import torch
 import random 
 import gradio as gr
 import time
@@ -9,7 +10,7 @@ from src.cost_time import calculate_time
 #import pdb
 os.environ["GRADIO_TEMP_DIR"]= './temp'
 os.environ["WEBUI"] = "true"
-os.environ['LD_LIBRARY_PATH'] = '/usr/local/lib:/usr/lib:' + os.environ.get('LD_LIBRARY_PATH', '')
+#os.environ['LD_LIBRARY_PATH'] = '/usr/local/lib:/usr/lib:' + os.environ.get('LD_LIBRARY_PATH', '')
 
 
 def get_title(title = ''):
@@ -363,7 +364,7 @@ if __name__ == "__main__":
     except Exception as e:
         error_print(f"GPT-SoVITS Error: {e}")
         error_print("请先下载GPT-SoVITS模型和安装环境")
-    
+    torch.cuda.empty_cache()
     try:
         from TFG import SadTalker
         talker = SadTalker(lazy_load=True)
