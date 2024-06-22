@@ -316,6 +316,7 @@ if __name__ == "__main__":
 
     # 环境命令
     # os.chdir('/home/xlab-app-center/')
+    os.system('ln -s /usr/local/lib /usr/lib')
     
     LLM_openxlab_path = "shenfeilang/Honor-of-Kings_RolePlay"
     lively_openxlab_path = "YongXie66/DaJi_RolePlay"
@@ -403,7 +404,7 @@ if __name__ == "__main__":
 """)
     demo.queue()
     demo.launch(
-                # ssl_certfile="/home/xlab-app-center/https_cert/cert.pem",
-                # ssl_keyfile="/home/xlab-app-center/https_cert/key.pem",
-                # ssl_verify=False,
+                ssl_certfile="/home/xlab-app-center/https_cert/cert.pem",
+                ssl_keyfile="/home/xlab-app-center/https_cert/key.pem",
+                ssl_verify=False,
                 share=True) 
