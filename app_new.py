@@ -316,7 +316,6 @@ if __name__ == "__main__":
 
     # 环境命令
     # os.chdir('/home/xlab-app-center/')
-    os.system('pip install --upgrade gradio==4.36.1')
     
     LLM_openxlab_path = "shenfeilang/Honor-of-Kings_RolePlay"
     lively_openxlab_path = "YongXie66/DaJi_RolePlay"
