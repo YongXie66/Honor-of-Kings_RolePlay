@@ -36,7 +36,7 @@ cn2an
 pypinyin
 pyopenjtalk
 g2p_en
-modelscope==1.10.0
+#modelscope==1.10.0
 chardet
 PyYAML
 psutil
