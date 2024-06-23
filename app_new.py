@@ -316,8 +316,8 @@ if __name__ == "__main__":
 
     # 环境命令
     # os.chdir('/home/xlab-app-center/')
-    os.system('ln -s /usr/local/lib /usr/lib')
-    os.system('find libsox.so')
+    #os.system('ln -s /usr/local/lib /usr/lib')
+    #os.system('find libsox.so')
     
     LLM_openxlab_path = "shenfeilang/Honor-of-Kings_RolePlay"
     lively_openxlab_path = "YongXie66/DaJi_RolePlay"
@@ -367,6 +367,7 @@ if __name__ == "__main__":
         error_print(f"GPT-SoVITS Error: {e}")
         error_print("请先下载GPT-SoVITS模型和安装环境")
     torch.cuda.empty_cache()
+    
     try:
         from TFG import SadTalker
         talker = SadTalker(lazy_load=True)
@@ -384,6 +385,7 @@ if __name__ == "__main__":
     except Exception as e:
         error_print(f"ASR Error: {e}")
         error_print("请先下载ASR模型和安装环境")
+    torch.cuda.empty_cache()
 
     gr.close_all()
     demo_chatty = app_chatty()
@@ -405,8 +407,8 @@ if __name__ == "__main__":
 """)
     demo.queue()
     demo.launch(
-                ssl_certfile="/home/xlab-app-center/https_cert/cert.pem",
-                ssl_keyfile="/home/xlab-app-center/https_cert/key.pem",
+                #ssl_certfile="/home/xlab-app-center/https_cert/cert.pem",
+                #ssl_keyfile="/home/xlab-app-center/https_cert/key.pem",
                 #ssl_verify=False,
                 share=True
     ) 
