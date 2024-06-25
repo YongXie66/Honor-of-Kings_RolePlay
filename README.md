@@ -41,7 +41,9 @@
 
 - **OpenXLab在线体验地址**：https://openxlab.org.cn/apps/detail/YongXie66/DaJi_RolePlay
 - **视频地址**：https://www.bilibili.com/video/BV1JuVJe1EqT
-- **模型地址**：[openxlab/YongXie66/DaJi_RolePlay](https://openxlab.org.cn/models/detail/YongXie66/DaJi_RolePlay) & [shenfeilang/InterLM2_7b_roleplay](https://openxlab.org.cn/models/detail/shenfeilang/Honor-of-Kings_RolePlay)
+- **模型地址**：
+   - [**小狐仙角色扮演文字对话模型(基于InternLM2-Chat-7B):** shenfeilang/InternLM2_7b_roleplay](https://openxlab.org.cn/models/detail/shenfeilang/Honor-of-Kings_RolePlay)
+   - [**小狐仙角色扮演TTS模型(基于GPT-SoVITS):** YongXie66/DaJi_RolePlay](https://openxlab.org.cn/models/detail/YongXie66/DaJi_RolePlay) 
 
 效果示例：
 
@@ -115,7 +117,7 @@
 
 ### 🧠InternLM2微调
 
-本项目使用 [xtuner ](https://github.com/InternLM/xtuner)微调工具，采用多轮对话训练格式，对InternLM2_chat_7b模型进行QLoRa微调。数据集包含1000条左右多轮对话数据，通过QLoRa策略优化模型的对话生成能力。该策略利用量化低秩近似，提升了模型的效率和性能，使其更好地理解和生成自然流畅的对话。微调后的模型不仅能处理复杂对话情境，还能提供更个性化和知识性的回答，显著提升用户的互动体验。
+本项目使用 [xtuner ](https://github.com/InternLM/xtuner)微调工具，采用多轮对话训练格式，对InternLM2_chat_7b模型进行QLoRA微调。数据集包含1000条左右多轮对话数据，通过QLoRA策略优化模型的对话生成能力。该策略利用量化低秩近似，提升了模型的效率和性能，使其更好地理解和生成自然流畅的对话。微调后的模型不仅能处理复杂对话情境，还能提供更个性化和知识性的回答，显著提升用户的互动体验。
 
 ### 🎤自动语音识别(ASR)
 
