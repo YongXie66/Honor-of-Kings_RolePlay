@@ -172,11 +172,11 @@ apt install git-lfs
 # LLM, funasr, gpt_sovits, sadtalker 相关模型下载
 git clone https://code.openxlab.org.cn/YongXie66/DaJi_RolePlay.git ./DaJi_RolePlay
 bash InternLM2/InternLM2_7b/download.sh
+bash FunASR/download.sh
 
 # 模型位置移动
 mv ./DaJi_RolePlay/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/
 mv ./DaJi_RolePlay/checkpoints/* ./checkpoints/
-mv ./DaJi_RolePlay/FunASR/* ./FunASR/
 mv ./DaJi_RolePlay/gfpgan/* ./gfpgan/
 
 # 生成 RAG 依赖的 Chroma 数据库
