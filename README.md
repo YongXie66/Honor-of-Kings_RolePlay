@@ -177,6 +177,8 @@ bash ./DaJi_RolePlay/InternLM2/InternLM2_7b/download.sh   # 下载微调好的 I
 bash ./DaJi_RolePlay/FunASR/download.sh                   # 下载 FunASR 模型文件夹到主目录
 
 # 模型位置移动
+mv ./InternLM2/ ./Honor-of-Kings_RolePlay/
+mv FunASR/* ./Honor-of-Kings_RolePlay/FunASR
 mv ./DaJi_RolePlay/GPT_SoVITS/pretrained_models/* ./Honor-of-Kings_RolePlay/GPT_SoVITS/pretrained_models/
 mv ./DaJi_RolePlay/checkpoints/* ./Honor-of-Kings_RolePlay/checkpoints/
 mv ./DaJi_RolePlay/gfpgan/* ./Honor-of-Kings_RolePlay/gfpgan/
