@@ -167,8 +167,10 @@ conda install -q ffmpeg
 download models
 
 ```bash
+# apt-get update
 apt install git
 apt install git-lfs
+# git-lfs 必须先安装，否则无法下载大文件（后续操作中的模型文件）
 
 # LLM, funasr, gpt_sovits, sadtalker 相关模型下载
 cd ~
