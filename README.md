@@ -186,6 +186,10 @@ mv ./DaJi_RolePlay/gfpgan/* ./Honor-of-Kings_RolePlay/gfpgan/
 # 生成 RAG 依赖的 Chroma 数据库
 cd ~/Honor-of-Kings_RolePlay
 python ./rag/generate_chroma_db.py
+# 执行上一条命令时，如果遇到如下错误：
+# RuntimeError: Failed to import transformers.trainer_callback because of the following error (look up to see its traceback):
+# cannot import name 'split_torch_state_dict_into_shards' from 'huggingface_hub'
+# 解决方法：pip install --upgrade huggingface_hub
 ```
 
 Web UI 启动 !
