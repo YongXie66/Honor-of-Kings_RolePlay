@@ -158,6 +158,7 @@ conda activate hok-roleplay
 
 pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
 
+cd ~/Honor-of-Kings_RolePlay
 pip install -r requirements.txt
 
 conda install -q ffmpeg
@@ -170,22 +171,25 @@ apt install git
 apt install git-lfs
 
 # LLM, funasr, gpt_sovits, sadtalker 相关模型下载
+cd ~
 git clone https://code.openxlab.org.cn/YongXie66/DaJi_RolePlay.git ./DaJi_RolePlay
-bash InternLM2/InternLM2_7b/download.sh
-bash FunASR/download.sh
+bash ./DaJi_RolePlay/InternLM2/InternLM2_7b/download.sh   # 下载微调好的 InternLM2_7b 小狐仙模型文件夹到主目录
+bash ./DaJi_RolePlay/FunASR/download.sh                   # 下载 FunASR 模型文件夹到主目录
 
 # 模型位置移动
-mv ./DaJi_RolePlay/GPT_SoVITS/pretrained_models/* ./GPT_SoVITS/pretrained_models/
-mv ./DaJi_RolePlay/checkpoints/* ./checkpoints/
-mv ./DaJi_RolePlay/gfpgan/* ./gfpgan/
+mv ./DaJi_RolePlay/GPT_SoVITS/pretrained_models/* ./Honor-of-Kings_RolePlay/GPT_SoVITS/pretrained_models/
+mv ./DaJi_RolePlay/checkpoints/* ./Honor-of-Kings_RolePlay/checkpoints/
+mv ./DaJi_RolePlay/gfpgan/* ./Honor-of-Kings_RolePlay/gfpgan/
 
 # 生成 RAG 依赖的 Chroma 数据库
-python Honor-of-Kings_RolePlay/rag/generate_chroma_db.py
+cd ~/Honor-of-Kings_RolePlay
+python ./rag/generate_chroma_db.py
 ```
 
 Web UI 启动 !
 
 ```bash
+cd ~/Honor-of-Kings_RolePlay
 python webui.py
 ```
 
